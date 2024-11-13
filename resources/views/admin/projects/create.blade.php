@@ -34,6 +34,26 @@
         </div>
 
         <div class="my-1">
+            <label for="project-technologies" class="form-label ps-2">Scegli Le Tecnologie:</label>
+            @foreach ($technologies as $technology )
+                <div class="form-check">
+                    <input type="checkbox" name="technologies[]" id="project-technologies"
+                    class="form-check-input" value="{{ $technology->id }}">
+                    <label type="checkbox" name="technologies[]" id="project-technologies"
+                    class="form-check-label">
+                        {{ $technology->name }}
+                    </label>
+                </div>
+            @endforeach
+
+            @error("technologies")
+                <div class="alert alert-warning">
+                    {{ $message }}
+                </div>
+            @enderror
+        </div>
+
+        <div class="my-1">
             <label for="project-author" class="form-label ps-2">Nome Autore:</label>
             <input type="text" class="form-control" id="project-author" name="author" value="{{ old('author') }}">
             @error("author")

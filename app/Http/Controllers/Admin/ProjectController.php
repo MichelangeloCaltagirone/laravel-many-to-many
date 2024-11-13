@@ -7,6 +7,7 @@ use App\Http\Requests\StoreProjectsRequest;
 use App\Http\Requests\UpdateProjectsRequest;
 use App\Models\Category;
 use App\Models\Project;
+use App\Models\Technology;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -26,7 +27,8 @@ class ProjectController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view("admin.projects.create", compact("categories"));
+        $technologies = Technology::all();
+        return view("admin.projects.create", compact("categories", "technologies"));
     }
 
     /**
@@ -41,6 +43,7 @@ class ProjectController extends Controller
         $newProject = new Project();
         $newProject->name = $projectData["name"];
         $newProject->category_id = $projectData["category_id"];
+        $newProject->technologies = $projectData["technologies"];
         $newProject->author = $projectData["author"];
         $newProject->description = $projectData["description"];
 
@@ -66,8 +69,9 @@ class ProjectController extends Controller
     {
         $project = Project::findOrFail($id);
         $categories = Category::all();
+        $technologies = Technology::all();
 
-        return view("admin.projects.edit", compact("project", "categories"));
+        return view("admin.projects.edit", compact("project", "categories", "technologies"));
     }
 
     /**
@@ -82,6 +86,7 @@ class ProjectController extends Controller
         $project = Project::findOrFail($id);
         $project->name = $newData["name"];
         $project->category_id = $newData["category_id"];
+        $project->technologies = $newData["technologies"];
         $project->author = $newData["author"];
         $project->description = $newData["description"];
 
