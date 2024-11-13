@@ -19,7 +19,8 @@ class DatabaseSeeder extends Seeder
        $this->call([
             CategorySeeder::class,
             Technology::class,
-            PostSeeder::class
+            PostSeeder::class,
+            ProjectTechnologySeeder::class
        ]);
     }
 }
