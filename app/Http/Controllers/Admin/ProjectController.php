@@ -49,6 +49,7 @@ class ProjectController extends Controller
 
         $newProject->save();
         // $project = Project::create(); da usare se compilate le fillable nel Model(da fare)
+        $newProject->technologies()->sync($projectData["technologies"]);
 
         return redirect()->route("admin.projects.show", [ "id"=> $newProject->id] );
     }
