@@ -10,6 +10,7 @@
             <th scope="col">Id</th>
             <th scope="col">Project Name</th>
             <th scope="col">Category</th>
+            <th scope="col">Technologies</th>
             <th scope="col">Author Name</th>
             <th scope="col">Description</th>
             <th scope="col">Operations</th>
@@ -22,6 +23,13 @@
                 <td>{{ $project->id }}</td>
                 <td>{{ $project->name }}</td>
                 <td>{{ $project->category->name }}</td>
+                <td>
+                    @forelse ($project->technologies as $technology)
+                        <span class="badge text-bg-danger">{{ $technology->name }}</span>
+                    @empty
+                        No technologies
+                    @endforelse
+                </td>
                 <td>{{ $project->author }}</td>
                 <td>{{ $project->description }}</td>
                 <td>
