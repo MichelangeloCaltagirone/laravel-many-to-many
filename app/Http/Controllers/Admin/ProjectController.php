@@ -43,14 +43,17 @@ class ProjectController extends Controller
         $newProject = new Project();
         $newProject->name = $projectData["name"];
         $newProject->category_id = $projectData["category_id"];
-        $newProject->technologies = $projectData["technologies"];
         $newProject->author = $projectData["author"];
         $newProject->description = $projectData["description"];
 
-        $newProject->save();
-        // $project = Project::create(); da usare se compilate le fillable nel Model(da fare)
-        $newProject->technologies()->sync($projectData["technologies"]);
 
+
+
+        $newProject->save();
+        //dd($newProject);
+        // $project = Project::create(); da usare se compilate le fillable nel Model
+        $newProject->technologies()->sync($projectData["technologies"]);
+        //dd($newProject);
         return redirect()->route("admin.projects.show", [ "id"=> $newProject->id] );
     }
 
@@ -87,11 +90,12 @@ class ProjectController extends Controller
         $project = Project::findOrFail($id);
         $project->name = $newData["name"];
         $project->category_id = $newData["category_id"];
-        $project->technologies = $newData["technologies"];
+        //$project->technologies = $newData["technologies"];
         $project->author = $newData["author"];
         $project->description = $newData["description"];
 
         $project->save();
+        $project->technologies()->sync($newData["technologies"]);
 
         return redirect()->route("admin.projects.show", [ "id"=> $project->id] );
     }
