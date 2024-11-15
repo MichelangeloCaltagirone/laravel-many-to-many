@@ -63,6 +63,15 @@
         </div>
 
         <div class="my-1">
+            <input type="file" name="image" id="project-image" class="form-control">
+            @error("image")
+                <div class="alert alert-warning">
+                    {{ $message }}
+                </div>
+            @enderror
+        </div>
+
+        <div class="my-1">
             <label for="project-author" class="form-label ps-2">Nome Autore:</label>
             <input type="text" class="form-control" id="project-author" name="author"
             value="{{ old('author', $project->author) }}">

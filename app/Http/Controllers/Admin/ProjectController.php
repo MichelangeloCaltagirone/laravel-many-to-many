@@ -41,9 +41,10 @@ class ProjectController extends Controller
 
         $projectData = $request->all();
 
-        $filepath = Storage::disk("public")->put("img/posts/", $request->image);
-
-        $projectData["image"] = $filepath;
+        if($request->hasFile("image")) {
+            $filepath = Storage::disk("public")->put("img/posts/", $request->image);
+            $projectData["image"] = $filepath;
+        }
 
         $newProject = new Project();
         $newProject->name = $projectData["name"];
@@ -89,16 +90,25 @@ class ProjectController extends Controller
      */
     public function update(UpdateProjectsRequest $request, string $id)
     {
+        dd($request["image"]);
         $request->validated();
-
+        $project = Project::findOrFail($id);
         $newData = $request->all();
 
-        $project = Project::findOrFail($id);
+        if ($request->hasFile("image")) {
+            if ($project->image) {
+                Storage::delete($project->image);
+            }
+            $filepath = Storage::disk("public")->put("img/posts/", $request->image);
+            $newData["image"] = $filepath;
+        }
+
+
         $project->name = $newData["name"];
         $project->category_id = $newData["category_id"];
-        //$project->technologies = $newData["technologies"];
         $project->author = $newData["author"];
         $project->description = $newData["description"];
+        $project->image = $newData["image"];
 
         $project->save();
         $project->technologies()->sync($newData["technologies"]);
