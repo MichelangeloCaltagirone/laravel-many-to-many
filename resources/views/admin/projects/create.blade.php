@@ -4,7 +4,7 @@
 
 <div class="container">
 
-    <form class="card col-8 px-3 m-auto" action="{{ route("admin.projects.store") }}" method="POST">
+    <form class="card col-8 px-3 m-auto" action="{{ route("admin.projects.store") }}" method="POST" enctype="multipart/form-data">
     @csrf
         <div class="my-1">
             <label for="project-name" class="form-label ps-2">Nome Progetto:</label>
@@ -47,6 +47,15 @@
             @endforeach
 
             @error("technologies")
+                <div class="alert alert-warning">
+                    {{ $message }}
+                </div>
+            @enderror
+        </div>
+
+        <div class="my-1">
+            <input type="file" name="image" id="project-image" class="form-control">
+            @error("image")
                 <div class="alert alert-warning">
                     {{ $message }}
                 </div>

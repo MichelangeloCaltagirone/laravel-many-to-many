@@ -9,6 +9,7 @@ use App\Models\Category;
 use App\Models\Project;
 use App\Models\Technology;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
@@ -40,11 +41,16 @@ class ProjectController extends Controller
 
         $projectData = $request->all();
 
+        $filepath = Storage::disk("public")->put("img/posts/", $request->image);
+
+        $projectData["image"] = $filepath;
+
         $newProject = new Project();
         $newProject->name = $projectData["name"];
         $newProject->category_id = $projectData["category_id"];
         $newProject->author = $projectData["author"];
         $newProject->description = $projectData["description"];
+        $newProject->image = $projectData["image"];
 
 
 

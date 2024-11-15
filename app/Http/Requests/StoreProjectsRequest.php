@@ -26,7 +26,8 @@ class StoreProjectsRequest extends FormRequest
             "category_id" => "required|numeric|integer|exists:categories,id",
             "technologies" => "required|array|exists:technologies,id",
             "description" => "required|string|min:20",
-            "author" => "required|string|min:2|max:50"
+            "author" => "required|string|min:2|max:50",
+            "image" => "image|nullable|max:250"
         ];
     }
     public function messages()
@@ -37,7 +38,8 @@ class StoreProjectsRequest extends FormRequest
             "description.required" => "La descrizione è obbligatoria",
             "description.min" => "La descrizione deve essere più lunga di 20 caratteri",
             "author.required" => "L'autore è obbligatorio",
-            "author.min" => "Il nome autore deve essere composto da almeno 2 caratteri"
+            "author.min" => "Il nome autore deve essere composto da almeno 2 caratteri",
+            "image.max" => "Il file dell'immaghine non può superare 250 kbyte di spazio"
             ];
     }
 }

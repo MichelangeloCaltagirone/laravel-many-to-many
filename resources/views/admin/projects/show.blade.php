@@ -6,6 +6,7 @@
         <div class="card p-1">
             <span>{{ $project->id }} </span>
             <h2>Nome progetto: {{ $project->name }} </h2>
+            <img src="{{ asset("/storage/" . $project->image) }}" alt="{{ $project->title }}'s image">
             <h3>Categoria: {{ $project->category->name }}</h3>
             <div class="p-1 my-2">
                 <strong>Technologies:</strong>
